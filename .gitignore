@@ -103,3 +103,7 @@ venv.bak/
 # mypy
 .mypy_cache/
 /OM/.vs/OM/v16
+/OM/Debug
+/OM/OSInfo/x64/Debug
+/OM/OSInfo/Debug
+/OM/x64/Debug
