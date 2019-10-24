@@ -124,10 +124,13 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="cpuinfo.cpp" />
+    <ClCompile Include="hddinfo.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="networkinfo.cpp" />
+    <ClCompile Include="osinfo.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="osinfo.h" />
+    <ClInclude Include="base.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

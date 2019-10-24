@@ -21,9 +21,18 @@
     <ClCompile Include="cpuinfo.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="hddinfo.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="osinfo.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="networkinfo.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="osinfo.h">
+    <ClInclude Include="base.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

@@ -1,32 +1,29 @@
-#include "osinfo.h";
+#include "base.h";
+#include <intrin.h>
 
-void __cpuidex(INT32 CPUInfo[4], INT32 InfoType, INT32 ECXValue)
+void GetCPUInfo() 
 {
-	if (NULL == CPUInfo)    return;
-	_asm {
-		// load. 读取参数到寄存器
-		mov edi, CPUInfo;    // 准备用edi寻址CPUInfo
-		mov eax, InfoType;
-		mov ecx, ECXValue;
-		// CPUID
-		cpuid;
-		// save. 将寄存器保存到CPUInfo
-		mov[edi], eax;
-		mov[edi + 4], ebx;
-		mov[edi + 8], ecx;
-		mov[edi + 12], edx;
-	}
-}
+	int cpuInfo[4] = { -1 };
+	char cpu_manufacture[32] = { 0 };
+	char cpu_type[32] = { 0 };
+	char cpu_freq[32] = { 0 };
+	char cpu_id[33] = { NULL };
 
-char* GetCPUId() 
-{
-	INT32 dwBuf[4] = { 0 };
-	__cpuidex(dwBuf, 1, 1);
+	__cpuid(cpuInfo, 0x80000002);
+	memcpy(cpu_manufacture, cpuInfo, sizeof(cpuInfo));
 
-	char cpuIdTmp[33] = { NULL };
-	sprintf_s(cpuIdTmp, "%08X%08X", dwBuf[3], dwBuf[0]);
+	__cpuid(cpuInfo, 0x80000003);
+	memcpy(cpu_type, cpuInfo, sizeof(cpuInfo));
 
-	const char cpuId[33] = { NULL };
+	__cpuid(cpuInfo, 0x80000004);
+	memcpy(cpu_freq, cpuInfo, sizeof(cpuInfo));
 
-	return (char*)cpuIdTmp;
+	__cpuidex(cpuInfo, 1, 1);
+	sprintf_s(cpu_id, "%08X%08X", cpuInfo[3], cpuInfo[0]);
+
+	cout << "CPU manufacture: " << cpu_manufacture << endl;
+	cout << "CPU type: " << cpu_type << endl;
+	cout << "CPU main frequency: " << cpu_freq << endl;
+	cout << "CPU ID:" << cpu_id << endl;
+	cout << endl;
 }
