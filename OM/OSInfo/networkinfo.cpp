@@ -1,7 +1,9 @@
-#include "base.h";
+#include "base.h"
 
-void GetNetworkInfo()
+NetworkInfoStruct GetNetworkInfo_Win()
 {
+	static NetworkInfoStruct networkinfo;
+
 	// PIP_ADAPTER_INFO struct contains network information
 	PIP_ADAPTER_INFO pIpAdapterInfo = new IP_ADAPTER_INFO();
 	unsigned long adapter_size = sizeof(IP_ADAPTER_INFO);
@@ -22,10 +24,10 @@ void GetNetworkInfo()
 		// may have many cards, it saved in linklist
 		while (pIpAdapterInfo)
 		{
-			std::cout << "---- " << "NetworkCard " << ++card_index << " ----" << std::endl;
+			//std::cout << "---- " << "NetworkCard " << ++card_index << " ----" << std::endl;
 
-			std::cout << "Network Card Name: " << pIpAdapterInfo->AdapterName << std::endl;
-			std::cout << "Network Card Description: " << pIpAdapterInfo->Description << std::endl;
+			//std::cout << "Network Card Name: " << pIpAdapterInfo->AdapterName << std::endl;
+			//std::cout << "Network Card Description: " << pIpAdapterInfo->Description << std::endl;
 
 			// get IP, one card may have many IPs
 			PIP_ADDR_STRING pIpAddr = &(pIpAdapterInfo->IpAddressList);
@@ -34,7 +36,11 @@ void GetNetworkInfo()
 				char local_ip[128] = { 0 };
 				//strcpy(local_ip, pIpAddr->IpAddress.String);
 				strcpy_s(local_ip, pIpAddr->IpAddress.String);
-				std::cout << "Local IP: " << local_ip << std::endl;
+				//std::cout << "Local IP: " << local_ip << std::endl;
+
+				//stringstream ss;
+				//ss << local_ip;
+				//networkinfo.ip = ss.str();
 
 				pIpAddr = pIpAddr->Next;
 			}
@@ -52,7 +58,7 @@ void GetNetworkInfo()
 			}
 			local_mac[17] = '\0'; // remove tail '-'
 
-			std::cout << "Local Mac: " << local_mac << std::endl;
+			//std::cout << "Local Mac: " << local_mac << std::endl;
 
 			// here just need the first card info
 			break;
@@ -66,5 +72,26 @@ void GetNetworkInfo()
 		delete pIpAdapterInfo;
 	}
 
-	cout << endl;
+	//cout << endl;
+
+
+	return networkinfo;
+}
+
+NetworkInfoStruct GetNetworkInfo_Linux()
+{
+	static NetworkInfoStruct networkinfo;
+	return networkinfo;
+}
+
+NetworkInfoStruct GetNetworkInfo()
+{
+	if (SYSTEM_TYPE == 0)
+	{
+		return GetNetworkInfo_Win();
+	}
+	else
+	{
+		return GetNetworkInfo_Linux();
+	}
 }

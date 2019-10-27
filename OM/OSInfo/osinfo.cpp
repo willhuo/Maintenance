@@ -1,12 +1,12 @@
-#include "base.h";
+#include "base.h"
 
-void GetOsInfo()
+#ifdef _WIN32
+OsInfoStruct GetOsInfo()
 {
-	// get os name according to version number
+	string os_name;
 	OSVERSIONINFO osver = { sizeof(OSVERSIONINFO) };
 	GetVersionEx(&osver);
-	HWND h = { NULL };
-	std::string os_name;
+
 	if (osver.dwMajorVersion == 5 && osver.dwMinorVersion == 0)
 		os_name = "Windows 2000";
 	else if (osver.dwMajorVersion == 5 && osver.dwMinorVersion == 1)
@@ -20,7 +20,27 @@ void GetOsInfo()
 	else if (osver.dwMajorVersion == 6 && osver.dwMinorVersion == 2)
 		os_name = "windows 10";
 
-	std::cout << "os name: " << os_name << std::endl;
-	std::cout << "os version: " << osver.dwMajorVersion << '.' << osver.dwMinorVersion << std::endl;
-	cout << endl;
+	stringstream ss;
+	ss << os_name << " ";
+	ss << osver.dwMajorVersion << '.' << osver.dwMinorVersion;
+
+	static OsInfoStruct osinfo;
+	osinfo.osnameversion = ss.str();
+	return osinfo;
 }
+#else
+OsInfoStruct GetOsInfo()
+{
+	ifstream infile;
+	infile.open("/proc/version");
+
+	stringstream ss;
+	ss << infile.rdbuf();
+
+	infile.close();
+
+	static OsInfoStruct osinfo;
+	osinfo.osnameversion = ss.str();
+	return osinfo;
+}
+#endif

@@ -1,29 +1,44 @@
-#include "base.h";
+ï»¿#include "base.h"
 
-extern void GetOsInfo();
-extern void GetCPUInfo();
-extern void GetHardDiskInfo();
-extern void GetNetworkInfo();
+extern OsInfoStruct GetOsInfo();
+extern CPUInfoStruct GetCPUInfo();
+extern CPUInfoStruct GetCPUInfo2();
+//extern HDDInfoStruct GetHardDiskInfo();
+//extern NetworkInfoStruct GetNetworkInfo();
 
 int main()
 {
-	printf("Operation System Utility v1.0\n\n");
+	cout << "Operation System Utility v1.0" << endl;
+	cout << "Current OS is:" << SYSTEM_TYPE << endl << endl;
 
-	//»ñÈ¡ÏµÍ³ÐÅÏ¢
-	printf("-----ÏµÍ³ÐÅÏ¢-----\n");
-	GetOsInfo();
+	//èŽ·å–ç³»ç»Ÿä¿¡æ¯
+	cout << "-----ç³»ç»Ÿä¿¡æ¯-----" << endl;
+	OsInfoStruct osinfo = GetOsInfo();
+	cout << "osnameversion:" << osinfo.osnameversion << endl;
+	cout << endl;
 
-	//»ñÈ¡CPUInfo
-	printf("-----CPUÐÅÏ¢-----\n");
-	GetCPUInfo();
+	//èŽ·å–CPUInfo
+	cout << "-----CPUä¿¡æ¯-----" << endl;
+	CPUInfoStruct cpuinfo= GetCPUInfo();
+	cout << "modelname:" << cpuinfo.modelname << endl;
+	cout << "cpuid:" << cpuinfo.cpuid << endl;
+	cout << endl;
 
-	//»ñÈ¡HDDInfo
-	printf("-----HDDÐÅÏ¢-----\n");
-	GetHardDiskInfo();
+	//èŽ·å–CPUInfo
+	//cout << "-----CPUä¿¡æ¯2-----" << endl;
+	//CPUInfoStruct cpuinfo2 = GetCPUInfo2();
+	//cout << "modelname:" << cpuinfo2.modelname << endl;
+	//cout << "cpuid:" << cpuinfo2.cpuid << endl;
+	//cout << endl;
 
-	//»ñÈ¡ÍøÂçÐÅÏ¢
-	printf("-----NetworkÐÅÏ¢-----\n");
-	GetNetworkInfo();
+	////èŽ·å–HDDInfo
+	//cout << "-----HDDä¿¡æ¯-----" << endl;
+	//HDDInfoStruct hddinfo = GetHardDiskInfo();
+	//cout << "serialnum:" << hddinfo.serialnum << endl;
+
+	//èŽ·å–ç½‘ç»œä¿¡æ¯
+	//printf("-----Networkä¿¡æ¯-----\n");
+	//GetNetworkInfo();
 
 	return 0;
 }

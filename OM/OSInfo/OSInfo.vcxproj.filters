@@ -13,31 +13,22 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="源文件\linux">
-      <UniqueIdentifier>{6e90f354-a3ed-4e04-b74c-903ada6d4f20}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="源文件\windows">
-      <UniqueIdentifier>{52c84339-4349-43cc-98ff-ce26052694b5}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="cpuinfo.cpp">
-      <Filter>源文件\windows</Filter>
+      <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="hddinfo.cpp">
-      <Filter>源文件\windows</Filter>
-    </ClCompile>
-    <ClCompile Include="osinfo.cpp">
-      <Filter>源文件\windows</Filter>
+      <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="networkinfo.cpp">
-      <Filter>源文件\windows</Filter>
+      <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="osinfol.cpp">
-      <Filter>源文件\linux</Filter>
+    <ClCompile Include="osinfo.cpp">
+      <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -1,7 +1,7 @@
-#include "base.h";
-#include <intrin.h>
+#include "base.h"
 
-void GetCPUInfo() 
+#ifdef _WIN32
+CPUInfoStruct GetCPUInfo()
 {
 	int cpuInfo[4] = { -1 };
 	char cpu_manufacture[32] = { 0 };
@@ -21,9 +21,69 @@ void GetCPUInfo()
 	__cpuidex(cpuInfo, 1, 1);
 	sprintf_s(cpu_id, "%08X%08X", cpuInfo[3], cpuInfo[0]);
 
-	cout << "CPU manufacture: " << cpu_manufacture << endl;
-	cout << "CPU type: " << cpu_type << endl;
-	cout << "CPU main frequency: " << cpu_freq << endl;
-	cout << "CPU ID:" << cpu_id << endl;
-	cout << endl;
+	stringstream ss;
+	ss << cpu_manufacture << cpu_type << cpu_freq;
+	string modelname = ss.str();
+	ss.str("");
+	ss << cpu_id;
+	string cpuid = ss.str();
+
+	static CPUInfoStruct cpuinfo;
+	cpuinfo.modelname = modelname;
+	cpuinfo.cpuid = cpuid;
+	return cpuinfo;
+}
+#else
+CPUInfoStruct GetCPUInfo()
+{
+	string modelname;
+	regex e("(model name\\s+:\\s+)(.+)");
+	smatch sm;
+
+	string line;
+	ifstream infile("/proc/cpuinfo");
+	while (getline(infile, line))
+	{
+		
+		bool flag = regex_match(line, sm, e);
+		if (flag && sm.size() == 3)
+		{
+			modelname = sm[2];
+			break;
+		}
+	}
+	infile.close();
+
+
+	static CPUInfoStruct cpuinfo;
+	cpuinfo.modelname = modelname;
+	cpuinfo.cpuid = "unknow";
+	return cpuinfo;
+}
+#endif
+
+CPUInfoStruct GetCPUInfo2()
+{
+	string modelname;
+	smatch sm;
+	regex e("(model name\\s+:\\s+)(.+)");
+
+	string line;
+	ifstream infile("E:\\gitprojs\\Maintenance\\OM\\Debug\\1.txt");
+	while (getline(infile, line))
+	{
+		bool flag = regex_match(line, sm, e);
+		if (flag && sm.size() == 3)
+		{
+			modelname = sm[2];
+			break;
+		}
+	}
+	infile.close();
+
+
+	static CPUInfoStruct cpuinfo;
+	cpuinfo.modelname = modelname;
+	cpuinfo.cpuid = "unknow";
+	return cpuinfo;
 }
