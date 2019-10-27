@@ -128,6 +128,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="networkinfo.cpp" />
     <ClCompile Include="osinfo.cpp" />
+    <ClCompile Include="osinfol.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="base.h" />
