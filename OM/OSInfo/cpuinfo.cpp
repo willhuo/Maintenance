@@ -37,23 +37,25 @@ CPUInfoStruct GetCPUInfo()
 CPUInfoStruct GetCPUInfo()
 {
 	string modelname;
-	regex e("(model name\\s+:\\s+)(.+)");
-	smatch sm;
+	string pattern = "model name";
+	int index;
 
 	string line;
 	ifstream infile("/proc/cpuinfo");
 	while (getline(infile, line))
-	{
-		
-		bool flag = regex_match(line, sm, e);
-		if (flag && sm.size() == 3)
+	{		
+		index = line.find(pattern);
+		if (index >= 0)
 		{
-			modelname = sm[2];
-			break;
+			if (index >= 0)
+			{
+				index = line.find(":");
+				modelname = line.substr(index + 2);
+				break;
+			}
 		}
 	}
 	infile.close();
-
 
 	static CPUInfoStruct cpuinfo;
 	cpuinfo.modelname = modelname;
@@ -61,29 +63,3 @@ CPUInfoStruct GetCPUInfo()
 	return cpuinfo;
 }
 #endif
-
-CPUInfoStruct GetCPUInfo2()
-{
-	string modelname;
-	smatch sm;
-	regex e("(model name\\s+:\\s+)(.+)");
-
-	string line;
-	ifstream infile("E:\\gitprojs\\Maintenance\\OM\\Debug\\1.txt");
-	while (getline(infile, line))
-	{
-		bool flag = regex_match(line, sm, e);
-		if (flag && sm.size() == 3)
-		{
-			modelname = sm[2];
-			break;
-		}
-	}
-	infile.close();
-
-
-	static CPUInfoStruct cpuinfo;
-	cpuinfo.modelname = modelname;
-	cpuinfo.cpuid = "unknow";
-	return cpuinfo;
-}

@@ -2,7 +2,6 @@
 
 extern OsInfoStruct GetOsInfo();
 extern CPUInfoStruct GetCPUInfo();
-extern CPUInfoStruct GetCPUInfo2();
 //extern HDDInfoStruct GetHardDiskInfo();
 //extern NetworkInfoStruct GetNetworkInfo();
 
@@ -23,13 +22,6 @@ int main()
 	cout << "modelname:" << cpuinfo.modelname << endl;
 	cout << "cpuid:" << cpuinfo.cpuid << endl;
 	cout << endl;
-
-	//获取CPUInfo
-	//cout << "-----CPU信息2-----" << endl;
-	//CPUInfoStruct cpuinfo2 = GetCPUInfo2();
-	//cout << "modelname:" << cpuinfo2.modelname << endl;
-	//cout << "cpuid:" << cpuinfo2.cpuid << endl;
-	//cout << endl;
 
 	////获取HDDInfo
 	//cout << "-----HDD信息-----" << endl;
